@@ -17,20 +17,22 @@ const cleanUp = function (str) {
     return str;
 }
 
-const palindromes = function (str) {
+const palindromes = function (str, cleaned) {
     // -- Cleanup first --
-    str = cleanUp(str);
-
-    if (str.length <= 1){
-        return true
-    } else if (str.endsWith(str[0])) {
-        return palindromes(str.slice(1, -1));
-    } else {
-        return false;
+    if (!cleaned) {
+        str = cleanUp(str);
+        cleaned = true;
     }
-}
+    // -- Recursively check for solution --
 
-console.log(palindromes('A car, a man, a maraca.'));
+      // Base case
+    if (str.length <= 1) {return true}
+      // Start of recursion
+    if (str.endsWith(str[0])) {
+        return palindromes(str.slice(1, -1), cleaned);
+    }
+    return false;
+}
 
 // Do not edit below this line
 module.exports = palindromes;
